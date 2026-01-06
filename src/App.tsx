@@ -93,7 +93,7 @@ function App() {
       console.error('Error:', error)
       const errorMessage: Message = {
         role: 'assistant',
-        content: 'Maaf, terjadi kesalahan koneksi ke AI. Pastikan API key sudah bena.'
+        content: 'Maaf, terjadi kesalahan koneksi ke AI. Pastikan API key sudah benar.'
       }
       setMessages(prev => [...prev, errorMessage])
     } finally {
