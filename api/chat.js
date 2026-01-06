@@ -1,7 +1,7 @@
 // Vercel Serverless Function untuk Inka Bot
 // Note: fetch is built-in in Node.js 18+ (Vercel)
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   // CORS headers
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
