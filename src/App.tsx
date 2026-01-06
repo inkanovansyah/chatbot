@@ -43,19 +43,16 @@ function App() {
 
       const prompt = `${conversationHistory}\nUser: ${input.trim()}\nBot:`
 
-      // Panggil proxy server lokal
-      const response = await fetch(
-        'http://localhost:3001/api/chat',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            prompt: prompt
-          })
-        }
-      )
+      // Panggil backend API (Vercel serverless atau local proxy)
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          prompt: prompt
+        })
+      })
 
       if (!response.ok) {
         const errorText = await response.text()
