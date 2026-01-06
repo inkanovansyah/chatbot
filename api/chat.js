@@ -23,13 +23,38 @@ module.exports = async (req, res) => {
   }
 
   try {
-    const { prompt } = req.body;
+    console.log('🔥 Request received');
+    console.log('Headers:', JSON.stringify(req.headers, null, 2));
+    console.log('Body:', JSON.stringify(req.body, null, 2));
+
+    let prompt;
+    try {
+      // Try to parse body if not already parsed
+      if (typeof req.body === 'string') {
+        prompt = JSON.parse(req.body).prompt;
+      } else if (req.body && req.body.prompt) {
+        prompt = req.body.prompt;
+      } else {
+        throw new Error('No prompt found in request body');
+      }
+    } catch (parseError) {
+      console.error('❌ Parse error:', parseError);
+      return res.status(400).json({ error: 'Invalid request body' });
+    }
 
     if (!prompt) {
       return res.status(400).json({ error: 'Prompt is required' });
     }
 
     console.log(`📨 User message: ${prompt}`);
+
+    // Check if API key exists
+    if (!process.env.GROQ_API_KEY) {
+      console.error('❌ GROQ_API_KEY not found in environment');
+      return res.status(500).json({ error: 'API key not configured' });
+    }
+
+    console.log('✅ GROQ_API_KEY found');
 
     // Simple AI responses (fallback)
     const simpleResponses = {
@@ -62,6 +87,8 @@ module.exports = async (req, res) => {
 
     // Coba gunakan Groq API
     try {
+      console.log('🌐 Calling Groq API...');
+
       const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST',
         headers: {
@@ -85,6 +112,8 @@ module.exports = async (req, res) => {
         })
       });
 
+      console.log(`📡 Groq API status: ${response.status}`);
+
       if (response.ok) {
         const data = await response.json();
         const botResponse = data.choices[0].message.content;
@@ -94,7 +123,9 @@ module.exports = async (req, res) => {
           generated_text: botResponse
         });
       } else {
-        throw new Error('Groq API failed');
+        const errorText = await response.text();
+        console.error(`❌ Groq API error: ${response.status} - ${errorText}`);
+        throw new Error(`Groq API failed: ${response.status}`);
       }
     } catch (apiError) {
       console.log(`⚠️  API Error, using Simple AI fallback`);
@@ -110,6 +141,10 @@ module.exports = async (req, res) => {
 
   } catch (error) {
     console.error('❌ Server Error:', error);
-    return res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({
+      error: 'Internal server error',
+      message: error.message,
+      stack: error.stack
+    });
   }
 };
