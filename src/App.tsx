@@ -126,7 +126,7 @@ function App() {
           messages.map((message, index) => (
             <div key={index} className={`message ${message.role}`}>
               <div className="message-content">
-                <strong>{message.role === 'user' ? '👤 Anda' : '🤖 Inka Bot'}</strong>
+                <strong>{message.role === 'user' ? '👤 Anda' : '🤖 BG23 Bot'}</strong>
                 <p>{message.content}</p>
               </div>
             </div>
