@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import './App.css'
+import './index.css'
 
 interface Message {
   role: 'user' | 'assistant'
@@ -36,14 +36,12 @@ function App() {
     setIsLoading(true)
 
     try {
-      // Format prompt untuk model conversational
       const conversationHistory = messages.map(m =>
         `${m.role === 'user' ? 'User' : 'Bot'}: ${m.content}`
       ).join('\n')
 
       const prompt = `${conversationHistory}\nUser: ${input.trim()}\nBot:`
 
-      // Panggil backend API (Vercel serverless atau local proxy)
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: {
@@ -63,7 +61,6 @@ function App() {
       const data = await response.json()
       console.log('API Data:', data)
 
-      // Handle response format dari Hugging Face
       let botResponse = 'Maaf, saya tidak dapat memproses pesan tersebut.'
 
       if (Array.isArray(data) && data.length > 0 && data[0].generated_text) {
@@ -72,13 +69,11 @@ function App() {
         botResponse = data.generated_text
       }
 
-      // Bersihkan response
       const lines = botResponse.split('\n').filter(line => line.trim())
       if (lines.length > 0) {
         botResponse = lines[0].trim()
       }
 
-      // Hapus "Bot:" prefix jika ada
       if (botResponse.startsWith('Bot:')) {
         botResponse = botResponse.substring(5).trim()
       }
@@ -113,73 +108,101 @@ function App() {
   }
 
   return (
-    <div className="chat-container">
-      <div className="chat-header">
-        <div className="header-left">
-          <div className="bot-avatar-header">🤖</div>
-          <div className="header-text">
-            <h1>BG23 Bot</h1>
-            <p>Chat with AI</p>
-          </div>
-        </div>
-        <div className="header-right">
-          <button className="settings-icon">⚙️</button>
-        </div>
-      </div>
-
-      <div className="chat-messages">
-        {messages.length === 0 ? (
-          <div className="welcome-message">
-            <div className="welcome-avatar">🤖</div>
-            <h2>Selamat datang di BG23 Bot! 👋</h2>
-            <p>Saya adalah asisten AI yang siap membantu Anda.</p>
-            <p>Ketik pesan Anda di bawah untuk memulai percakapan.</p>
-          </div>
-        ) : (
-          messages.map((message, index) => (
-            <div key={index} className={`message ${message.role}`}>
-              {message.role === 'assistant' && (
-                <div className="message-avatar bot-avatar">🤖</div>
-              )}
-              <div className="message-bubble">
-                <p className="message-text">{message.content}</p>
-                <span className="message-time">{formatTime(new Date())}</span>
-              </div>
-              {message.role === 'user' && (
-                <div className="message-avatar user-avatar">👤</div>
-              )}
+    <div className="w-full min-h-screen bg-dark-bg flex items-center justify-center p-0 sm:p-4">
+      <div className="w-full max-w-md h-screen sm:h-[90vh] bg-dark-bg flex flex-col relative sm:rounded-2xl sm:shadow-2xl overflow-hidden">
+        {/* Header */}
+        <div className="bg-dark-card border-b border-dark-border p-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center text-2xl sm:text-3xl shadow-lg">
+              🤖
             </div>
-          ))
-        )}
-        {isLoading && (
-          <div className="message assistant">
-            <div className="message-avatar bot-avatar">🤖</div>
-            <div className="message-bubble">
-              <p className="message-text typing">Sedang berpikir...</p>
+            <div>
+              <h1 className="text-base sm:text-xl font-bold text-primary">BG23 Bot</h1>
+              <p className="text-xs sm:text-sm text-dark-muted">Chat with AI</p>
             </div>
           </div>
-        )}
-        <div ref={messagesEndRef} />
-      </div>
-
-      <div className="chat-input-container">
-        <div className="input-wrapper">
-          <textarea
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyPress={handleKeyPress}
-            placeholder="Type your message here..."
-            rows={1}
-            disabled={isLoading}
-            className="chat-input"
-          />
-          <button
-            onClick={sendMessage}
-            disabled={isLoading || !input.trim()}
-            className="send-button"
-          >
-            ➤
+          <button className="w-10 h-10 rounded-full bg-dark-bg hover:bg-dark-border flex items-center justify-center text-lg transition-all duration-200">
+            ⚙️
           </button>
+        </div>
+
+        {/* Messages */}
+        <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3 scroll-smooth">
+          {messages.length === 0 ? (
+            <div className="flex flex-col items-center justify-center h-full text-center p-8">
+              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center text-4xl mb-5 shadow-xl">
+                🤖
+              </div>
+              <h2 className="text-xl sm:text-2xl font-bold text-primary mb-3">Selamat datang di BG23 Bot! 👋</h2>
+              <p className="text-sm sm:text-base text-dark-muted mb-2">Saya adalah asisten AI yang siap membantu Anda.</p>
+              <p className="text-sm sm:text-base text-dark-muted">Ketik pesan Anda di bawah untuk memulai percakapan.</p>
+            </div>
+          ) : (
+            messages.map((message, index) => (
+              <div
+                key={index}
+                className={`flex gap-2 items-start w-full ${
+                  message.role === 'assistant' ? 'justify-start' : 'justify-end'
+                }`}
+              >
+                {message.role === 'assistant' && (
+                  <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center text-base sm:text-lg flex-shrink-0">
+                    🤖
+                  </div>
+                )}
+                <div className={`px-4 py-3 ${
+                  message.role === 'assistant'
+                    ? 'bg-primary text-white rounded-2xl rounded-tl-sm'
+                    : 'bg-dark-card text-dark-text border border-dark-border rounded-2xl rounded-tr-sm'
+                }`}>
+                  <p className="text-sm sm:text-base whitespace-pre-wrap">{message.content}</p>
+                  <span className={`text-xs mt-2 block ${
+                    message.role === 'assistant' ? 'text-white/70' : 'text-dark-muted'
+                  }`}>
+                    {formatTime(new Date())}
+                  </span>
+                </div>
+                {message.role === 'user' && (
+                  <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-dark-border flex items-center justify-center text-base sm:text-lg flex-shrink-0 order-last">
+                    👤
+                  </div>
+                )}
+              </div>
+            ))
+          )}
+          {isLoading && (
+            <div className="flex gap-2 max-w-[85%] sm:max-w-[80%] mr-auto">
+              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center text-base sm:text-lg flex-shrink-0">
+                🤖
+              </div>
+              <div className="px-4 py-3 bg-primary text-white rounded-2xl rounded-tl-sm">
+                <p className="text-sm sm:text-base opacity-80 animate-pulse">Sedang berpikir...</p>
+              </div>
+            </div>
+          )}
+          <div ref={messagesEndRef} />
+        </div>
+
+        {/* Input */}
+        <div className="bg-dark-card border-t border-dark-border p-3 sm:p-4">
+          <div className="flex items-end gap-2 sm:gap-3 bg-dark-bg rounded-full px-4 py-2 focus-within:ring-2 focus-within:ring-primary/20 transition-all duration-200">
+            <textarea
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyPress={handleKeyPress}
+              placeholder="Type your message here..."
+              rows={1}
+              disabled={isLoading}
+              className="flex-1 bg-transparent border-none outline-none text-sm sm:text-base text-dark-text placeholder:text-dark-muted resize-none max-h-24 overflow-y-auto"
+            />
+            <button
+              onClick={sendMessage}
+              disabled={isLoading || !input.trim()}
+              className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-blue-500 hover:bg-blue-600 disabled:bg-gray-600 disabled:opacity-50 text-white flex items-center justify-center text-base sm:text-lg transition-all duration-200 flex-shrink-0 disabled:cursor-not-allowed hover:scale-105 active:scale-95"
+            >
+              ➤
+            </button>
+          </div>
         </div>
       </div>
     </div>
