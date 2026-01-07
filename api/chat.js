@@ -51,10 +51,18 @@ export default async function handler(req, res) {
     // Check if API key exists
     if (!process.env.GROQ_API_KEY) {
       console.error('❌ GROQ_API_KEY not found in environment');
-      return res.status(500).json({ error: 'API key not configured' });
+      // DEBUG: Return detailed error
+      return res.status(500).json({
+        error: 'API key not configured',
+        debug: {
+          hasEnvKey: !!process.env.GROQ_API_KEY,
+          envKeys: Object.keys(process.env).filter(k => k.includes('GROQ'))
+        }
+      });
     }
 
     console.log('✅ GROQ_API_KEY found');
+    console.log('🔑 Key preview:', process.env.GROQ_API_KEY.substring(0, 10) + '...');
 
     // Simple AI responses (fallback)
     const simpleResponses = {
@@ -129,13 +137,19 @@ export default async function handler(req, res) {
       }
     } catch (apiError) {
       console.log(`⚠️  API Error, using Simple AI fallback`);
-      console.log(`   Error: ${apiError.message}\n`);
+      console.log(`   Error: ${apiError.message}`);
+      console.log(`   Stack: ${apiError.stack}\n`);
 
       // Fallback ke Simple AI
       const simpleResponse = getSimpleResponse(prompt);
 
+      // DEBUG: Include error info in response
       return res.status(200).json({
-        generated_text: simpleResponse
+        generated_text: simpleResponse,
+        debug: {
+          error: apiError.message,
+          using: 'simpleResponse_fallback'
+        }
       });
     }
 

@@ -9,7 +9,7 @@ interface Message {
 function App() {
   const [messages, setMessages] = useState<Message[]>([{
     role: 'assistant',
-    content: 'Halo! Saya Inka Bot 🤖\n\nSaya adalah asisten AI cerdas yang baru dikembangkan nama model adalah Borneo.AI'
+    content: 'Halo! Saya BG23 Bot 🤖\n\nSaya adalah asisten AI cerdas yang baru dikembangkan nama model adalah Borneo.AI'
   }])
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -111,14 +111,14 @@ function App() {
   return (
     <div className="chat-container">
       <div className="chat-header">
-        <h1>🤖 Inka Bot</h1>
+        <h1>🤖 BG23 Bot</h1>
         <p>Curhat aja gpp</p>
       </div>
 
       <div className="chat-messages">
         {messages.length === 0 ? (
           <div className="welcome-message">
-            <h2>Selamat datang di Inka Bot! 👋</h2>
+            <h2>Selamat datang di BG23 Bot! 👋</h2>
             <p>Saya adalah asisten AI yang siap membantu Anda.</p>
             <p>Ketik pesan Anda di bawah untuk memulai percakapan.</p>
           </div>
@@ -135,8 +135,8 @@ function App() {
         {isLoading && (
           <div className="message assistant">
             <div className="message-content">
-              <strong>🤖 Inka Bot</strong>
-              <p className="typing">Sedang mengetik...</p>
+              <strong>🤖 BG23 Bot</strong>
+              <p className="typing">Sedang Berpikir...</p>
             </div>
           </div>
         )}
@@ -163,7 +163,7 @@ function App() {
       </div>
 
       <div className="chat-footer">
-        <p>Inka bot</p>
+        <p><b>BG23 bot</b></p>
       </div>
     </div>
   )

@@ -15,8 +15,8 @@ const GROQ_API_KEY = process.env.GROQ_API_KEY;
 
 // Simple AI responses (fallback)
 const simpleResponses = {
-  greetings: ["Halo! Saya Inka Bot! Ada yang bisa saya bantu? 😊", "Hai! Senang bertemu Anda! Apa yang ingin Anda diskusikan?", "Hello! Selamat datang!"],
-  identity: ["Saya Inka Bot, chatbot AI yang dibuat dengan"],
+  greetings: ["Halo! Saya BG23 Bot! Ada yang bisa saya bantu? 😊", "Hai! Senang bertemu Anda! Apa yang ingin Anda diskusikan?", "Hello! Selamat datang!"],
+  identity: ["Saya BG23 Bot, chatbot AI yang dibuat dengan model Borneo.ai. Saya di sini untuk membantu Anda! 🤖", "Saya adalah BG23 Bot, asisten virtual Anda. Bagaimana saya bisa membantu hari ini?"],
   thanks: ["Sama-sama! Senang bisa membantu! 😊", "You're welcome! Ada lagi yang ingin Anda tanyakan?"],
   default: [
     "Menarik! Ceritakan lebih lanjut! 🤔",
@@ -63,7 +63,7 @@ app.post('/api/chat', async (req, res) => {
           messages: [
             {
               role: 'system',
-              content: 'Anda adalah Inka Bot, asisten AI yang ramah, cerdas, dan profesional. Anda dibuat dengan React, Vite, dan TypeScript. Jawab dengan bahasa Indonesia yang santai tapi sopan. Berikan jawaban yang detail, membantu, dan informatif. Gunakan emoji sesekali agar lebih menarik.'
+              content: 'Anda adalah BG23 Bot, asisten AI yang ramah, cerdas, dan profesional. Anda dibuat dengan model Borneo.ai. Jawab dengan bahasa Indonesia yang santai tapi sopan. Berikan jawaban yang detail, membantu, dan informatif. Gunakan emoji sesekali agar lebih menarik.'
             },
             {
               role: 'user',
@@ -106,7 +106,7 @@ app.post('/api/chat', async (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`\n╔════════════════════════════════════════════════╗`);
-  console.log(`║       🤖 INKA BOT - HYBRID AI SYSTEM 🤖         ║`);
+  console.log(`║       🤖 BG23 BOT - HYBRID AI SYSTEM 🤖         ║`);
   console.log(`╠════════════════════════════════════════════════╣`);
   console.log(`║  Status:     ✅ ONLINE                         ║`);
   console.log(`║  Port:       ${PORT}                               ║`);
