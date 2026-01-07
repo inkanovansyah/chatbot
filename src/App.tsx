@@ -108,26 +108,25 @@ function App() {
   }
 
   return (
-    <div className="w-full min-h-screen bg-dark-bg flex items-center justify-center p-0 sm:p-4">
-      <div className="w-full max-w-md h-screen sm:h-[90vh] bg-dark-bg flex flex-col relative sm:rounded-2xl sm:shadow-2xl overflow-hidden">
-        {/* Header */}
-        <div className="bg-dark-card border-b border-dark-border p-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center text-2xl sm:text-3xl shadow-lg">
-              🤖
-            </div>
-            <div>
-              <h1 className="text-base sm:text-xl font-bold text-primary">BG23 Bot</h1>
-              <p className="text-xs sm:text-sm text-dark-muted">Chat with AI</p>
-            </div>
+    <div className="w-full h-screen bg-dark-bg flex flex-col">
+      {/* Fixed Header */}
+      <div className="fixed top-0 left-0 right-0 bg-dark-card border-b border-dark-border p-4 flex items-center justify-between z-50 max-w-md mx-auto w-full sm:rounded-b-2xl sm:shadow-lg">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center text-2xl sm:text-3xl shadow-lg">
+            🤖
           </div>
-          <button className="w-10 h-10 rounded-full bg-dark-bg hover:bg-dark-border flex items-center justify-center text-lg transition-all duration-200">
-            ⚙️
-          </button>
+          <div>
+            <h1 className="text-base sm:text-xl font-bold text-primary">BG23 Bot</h1>
+            <p className="text-xs sm:text-sm text-dark-muted">Chat with AI</p>
+          </div>
         </div>
+        <button className="w-10 h-10 rounded-full bg-dark-bg hover:bg-dark-border flex items-center justify-center text-lg transition-all duration-200">
+          ⚙️
+        </button>
+      </div>
 
-        {/* Messages */}
-        <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3 scroll-smooth">
+      {/* Messages Area - Scrollable */}
+      <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3 scroll-smooth mt-[72px] mb-[72px]">
           {messages.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full text-center p-8">
               <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center text-4xl mb-5 shadow-xl">
@@ -171,7 +170,7 @@ function App() {
             ))
           )}
           {isLoading && (
-            <div className="flex gap-2 max-w-[85%] sm:max-w-[80%] mr-auto">
+            <div className="flex gap-2 items-start w-full justify-start">
               <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center text-base sm:text-lg flex-shrink-0">
                 🤖
               </div>
@@ -181,11 +180,11 @@ function App() {
             </div>
           )}
           <div ref={messagesEndRef} />
-        </div>
+      </div>
 
-        {/* Input */}
-        <div className="bg-dark-card border-t border-dark-border p-3 sm:p-4">
-          <div className="flex items-end gap-2 sm:gap-3 bg-dark-bg rounded-full px-4 py-2 focus-within:ring-2 focus-within:ring-primary/20 transition-all duration-200">
+      {/* Fixed Input */}
+      <div className="fixed bottom-0 left-0 right-0 bg-dark-card border-t border-dark-border p-3 sm:p-4 z-50 max-w-md mx-auto w-full sm:rounded-t-2xl sm:shadow-lg">
+        <div className="flex items-end gap-2 sm:gap-3 bg-dark-bg rounded-full px-4 py-2 focus-within:ring-2 focus-within:ring-primary/20 transition-all duration-200">
             <textarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
@@ -202,7 +201,6 @@ function App() {
             >
               ➤
             </button>
-          </div>
         </div>
       </div>
     </div>
