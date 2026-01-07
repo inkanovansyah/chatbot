@@ -108,16 +108,29 @@ function App() {
     }
   }
 
+  const formatTime = (date: Date) => {
+    return date.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', hour12: false })
+  }
+
   return (
     <div className="chat-container">
       <div className="chat-header">
-        <h1>🤖 BG23 Bot</h1>
-        <p>Curhat aja gpp</p>
+        <div className="header-left">
+          <div className="bot-avatar-header">🤖</div>
+          <div className="header-text">
+            <h1>BG23 Bot</h1>
+            <p>Chat with AI</p>
+          </div>
+        </div>
+        <div className="header-right">
+          <button className="settings-icon">⚙️</button>
+        </div>
       </div>
 
       <div className="chat-messages">
         {messages.length === 0 ? (
           <div className="welcome-message">
+            <div className="welcome-avatar">🤖</div>
             <h2>Selamat datang di BG23 Bot! 👋</h2>
             <p>Saya adalah asisten AI yang siap membantu Anda.</p>
             <p>Ketik pesan Anda di bawah untuk memulai percakapan.</p>
@@ -125,18 +138,24 @@ function App() {
         ) : (
           messages.map((message, index) => (
             <div key={index} className={`message ${message.role}`}>
-              <div className="message-content">
-                <strong>{message.role === 'user' ? '👤 Anda' : '🤖 BG23 Bot'}</strong>
-                <p>{message.content}</p>
+              {message.role === 'assistant' && (
+                <div className="message-avatar bot-avatar">🤖</div>
+              )}
+              <div className="message-bubble">
+                <p className="message-text">{message.content}</p>
+                <span className="message-time">{formatTime(new Date())}</span>
               </div>
+              {message.role === 'user' && (
+                <div className="message-avatar user-avatar">👤</div>
+              )}
             </div>
           ))
         )}
         {isLoading && (
           <div className="message assistant">
-            <div className="message-content">
-              <strong>🤖 BG23 Bot</strong>
-              <p className="typing">Sedang Berpikir...</p>
+            <div className="message-avatar bot-avatar">🤖</div>
+            <div className="message-bubble">
+              <p className="message-text typing">Sedang berpikir...</p>
             </div>
           </div>
         )}
@@ -144,26 +163,24 @@ function App() {
       </div>
 
       <div className="chat-input-container">
-        <textarea
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyPress={handleKeyPress}
-          placeholder="Ketik pesan Anda di sini... (Enter untuk kirim, Shift+Enter untuk baris baru)"
-          rows={2}
-          disabled={isLoading}
-          className="chat-input"
-        />
-        <button
-          onClick={sendMessage}
-          disabled={isLoading || !input.trim()}
-          className="send-button"
-        >
-          {isLoading ? '⏳' : 'Kirim 📤'}
-        </button>
-      </div>
-
-      <div className="chat-footer">
-        <p><b>BG23 bot</b></p>
+        <div className="input-wrapper">
+          <textarea
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyPress={handleKeyPress}
+            placeholder="Type your message here..."
+            rows={1}
+            disabled={isLoading}
+            className="chat-input"
+          />
+          <button
+            onClick={sendMessage}
+            disabled={isLoading || !input.trim()}
+            className="send-button"
+          >
+            ➤
+          </button>
+        </div>
       </div>
     </div>
   )
