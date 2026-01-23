@@ -17,6 +17,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   /* Prevent zoom on input focus for iOS */
   font-size: 16px;
+  /* Prevent body scroll when keyboard is open */
+  overflow: hidden;
   /* Handle safe areas for notched devices */
   padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
@@ -24,6 +26,10 @@ body {
 /* Prevent pull-to-refresh on mobile */
 html {
   overscroll-behavior-y: none;
+  /* Ensure full height */
+  height: 100%;
+  position: fixed;
+  width: 100%;
 }
 
 /* Ensure input doesn't zoom on iOS */
@@ -37,4 +43,10 @@ textarea {
   .fixed {
     position: fixed;
   }
+}
+
+/* Ensure app container takes full height */
+#root {
+  height: 100%;
+  overflow: hidden;
 }

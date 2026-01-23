@@ -1,8 +1,8 @@
 export const Header = () => {
   return (
-    <header className="fixed top-0 left-0 right-0 bg-dark-card/95 backdrop-blur-sm border-b border-dark-border p-3 sm:p-4 flex items-center justify-between z-50 shadow-lg">
+    <header className="fixed top-0 left-0 right-0 bg-dark-card border-b border-dark-border p-3 sm:p-4 flex items-center justify-between z-[100] shadow-lg" style={{ height: '60px' }}>
       {/* Container for centering on desktop */}
-      <div className="w-full max-w-7xl mx-auto flex items-center justify-between">
+      <div className="w-full max-w-7xl mx-auto flex items-center justify-between h-full">
         <div className="flex items-center gap-2 sm:gap-3">
           <div className="w-9 h-9 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center text-xl sm:text-2xl md:text-3xl shadow-lg flex-shrink-0">
             🤖

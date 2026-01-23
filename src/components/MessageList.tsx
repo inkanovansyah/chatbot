@@ -23,7 +23,7 @@ export const MessageList = ({ messages, isLoading }: MessageListProps) => {
   }
 
   return (
-    <main className="flex-1 overflow-y-auto px-3 sm:px-4 md:px-6 py-4 sm:py-6 space-y-4 scroll-smooth" style={{ marginTop: '70px', marginBottom: '90px', paddingBottom: 'max(env(safe-area-inset-bottom), 90px)' }}>
+    <main className="flex-1 overflow-y-auto px-3 sm:px-4 md:px-6 py-4 sm:py-6 space-y-4 scroll-smooth" style={{ marginTop: '60px', marginBottom: '90px', paddingBottom: 'max(env(safe-area-inset-bottom), 90px)' }}>
       {messages.length === 0 ? (
         <div className="flex flex-col items-center justify-center h-full text-center p-8">
           <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center text-4xl mb-5 shadow-xl">

@@ -34,7 +34,7 @@ export const ChatInput = ({ value, onChange, onSend, disabled }: ChatInputProps)
   }
 
   return (
-    <footer className="fixed bottom-0 left-0 right-0 bg-dark-card/95 backdrop-blur-sm border-t border-dark-border p-2 sm:p-3 md:p-4 z-50">
+    <footer className="fixed bottom-0 left-0 right-0 bg-dark-card border-t border-dark-border p-2 sm:p-3 md:p-4 z-[100]">
       <div className="w-full max-w-7xl mx-auto">
         <div className="flex items-end gap-2 sm:gap-3 bg-dark-bg rounded-2xl sm:rounded-3xl px-3 sm:px-4 py-2 sm:py-3 focus-within:ring-2 focus-within:ring-primary/20 transition-all duration-200 border border-dark-border/50">
             <textarea
