@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect, KeyboardEvent } from 'react'
+import { useRef, useEffect } from 'react'
+import type { KeyboardEvent } from 'react'
 
 interface ChatInputProps {
   value: string
@@ -17,11 +18,8 @@ export const ChatInput = ({ value, onChange, onSend, disabled }: ChatInputProps)
       // Reset height to auto to get the correct scrollHeight
       textarea.style.height = 'auto'
 
-      // Calculate new height
+      // Set the height based on content
       const scrollHeight = textarea.scrollHeight
-      const newRows = Math.min(Math.max(scrollHeight / 24, 1), 6) // Max 6 rows
-
-      // Set the height
       if (scrollHeight > 0) {
         textarea.style.height = `${scrollHeight}px`
       }
