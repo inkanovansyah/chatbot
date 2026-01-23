@@ -9,7 +9,7 @@ interface Message {
 function App() {
   const [messages, setMessages] = useState<Message[]>([{
     role: 'assistant',
-    content: 'Halo! Saya BG23 Bot 🤖\n\nSaya adalah asisten AI cerdas yang baru dikembangkan nama model adalah Borneo.AI'
+    content: 'Halo! Saya Phi-Five Bot 🤖\n\nSaya adalah asisten AI cerdas yang baru dikembangkan nama model adalah Borneo.AI'
   }])
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -116,7 +116,7 @@ function App() {
             🤖
           </div>
           <div>
-            <h1 className="text-base sm:text-xl font-bold text-primary">BG23 Bot</h1>
+            <h1 className="text-base sm:text-xl font-bold text-primary">Phi-Five Bot</h1>
             <p className="text-xs sm:text-sm text-dark-muted">Chat with AI</p>
           </div>
         </div>
@@ -132,7 +132,7 @@ function App() {
               <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center text-4xl mb-5 shadow-xl">
                 🤖
               </div>
-              <h2 className="text-xl sm:text-2xl font-bold text-primary mb-3">Selamat datang di BG23 Bot! 👋</h2>
+              <h2 className="text-xl sm:text-2xl font-bold text-primary mb-3">Selamat datang di Phi-Five Bot! 👋</h2>
               <p className="text-sm sm:text-base text-dark-muted mb-2">Saya adalah asisten AI yang siap membantu Anda.</p>
               <p className="text-sm sm:text-base text-dark-muted">Ketik pesan Anda di bawah untuk memulai percakapan.</p>
             </div>
