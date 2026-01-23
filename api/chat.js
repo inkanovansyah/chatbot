@@ -66,8 +66,8 @@ export default async function handler(req, res) {
 
     // Simple AI responses (fallback)
     const simpleResponses = {
-      greetings: ["Halo! Saya Inka Bot! Ada yang bisa saya bantu? 😊", "Hai! Senang bertemu Anda! Apa yang ingin Anda diskusikan?", "Hello! Selamat datang!"],
-      identity: ["Saya Inka Bot, chatbot AI yang dibuat dengan React, Vite, dan TypeScript! 🚀", "Saya Inka Bot, asisten AI pribadi Anda!"],
+      greetings: ["Halo! Saya Phi-Five! Ada yang bisa saya bantu? 😊", "Hai! Senang bertemu Anda! Apa yang ingin Anda diskusikan?", "Hello! Selamat datang!"],
+      identity: ["Saya Phi-Five, chatbot AI yang dibuat dengan React, Vite, dan TypeScript! 🚀", "Saya Phi-Five, asisten AI pribadi Anda!"],
       thanks: ["Sama-sama! Senang bisa membantu! 😊", "You're welcome! Ada lagi yang ingin Anda tanyakan?"],
       default: [
         "Menarik! Ceritakan lebih lanjut! 🤔",
@@ -108,7 +108,7 @@ export default async function handler(req, res) {
           messages: [
             {
               role: 'system',
-              content: 'Anda adalah Inka Bot, asisten AI yang ramah, cerdas, dan profesional. Anda dibuat dengan React, Vite, dan TypeScript. Jawab dengan bahasa Indonesia yang santai tapi sopan. Berikan jawaban yang detail, membantu, dan informatif. Gunakan emoji sesekali agar lebih menarik.'
+              content: 'Anda adalah Phi-Five, asisten AI yang ramah, cerdas, dan profesional. Anda dibuat dengan React, Vite, dan TypeScript. Jawab dengan bahasa Indonesia yang santai tapi sopan. Berikan jawaban yang detail, membantu, dan informatif. Gunakan emoji sesekali agar lebih menarik.'
             },
             {
               role: 'user',
